@@ -61,6 +61,39 @@ INSERT INTO productos (nombre_producto,precio_producto,stock_producto) VALUES ('
 INSERT INTO productos (nombre_producto,precio_producto,stock_producto) VALUES ('Botella de agua',3.49,75);
 INSERT INTO productos (nombre_producto,precio_producto,stock_producto) VALUES ('Pendrive USB',12.99,30);
 
+/*EJERCICO REALIZAR CONSULTAS*/
+
+/* Mostrar todos los productos de la tabla "Productos" junto con su precio.*/
+SELECT * FROM productos;
+SELECT nombre_producto AS Producto , precio_producto AS Precio FROM productos LIMIT 30;
+
+/*Mostrar los nombres de los clientes que hayan realizado algún pedido.*/
+SELECT * FROM pedidos;
+DESCRIBE pedidos;
+
+SELECT * FROM clientes;
+SELECT * FROM productos;
+
+INSERT INTO pedidos (id_cliente_fk,id_producto_fk,id_cantidad_producto,fecha_pedido) VALUES (1,1,3,'2023-05-03');
+INSERT INTO pedidos (id_cliente_fk,id_producto_fk,id_cantidad_producto,fecha_pedido) VALUES (2 , 4 , 2,'2023-01-01');
+INSERT INTO pedidos (id_cliente_fk,id_producto_fk,id_cantidad_producto,fecha_pedido) VALUES (4 , 3 , 4, '2023-04-13');
+INSERT INTO pedidos (id_cliente_fk,id_producto_fk,id_cantidad_producto,fecha_pedido) VALUES (3 , 2 , 2, '2023-02-16');
+
+SELECT nombre_cliente AS Nombre, apellido_cliente AS Apellido FROM pedidos INNER JOIN clientes ON clientes.id_cliente = pedidos.id_cliente_fk;
+
+/** Mostrar el nombre y apellido de los clientes que hayan realizado un pedido en una fecha específica (por ejemplo, el 1 de enero de 2023).*/
+
+SELECT nombre_cliente AS Nombre, apellido_cliente AS Apellido FROM pedidos INNER JOIN clientes ON clientes.id_cliente = pedidos.id_cliente_fk WHERE fecha_pedido = '2023-04-13';
+SELECT nombre_cliente, apellido_cliente FROM clientes WHERE id_cliente = 4;
+
+/** Mostrar el nombre y dirección de los clientes que hayan realizado pedidos de productos cuyo precio sea mayor a $1000.*/
+SELECT nombre_cliente AS Nombre, apellido_cliente AS Apellido, direccion_cliente AS Direccion FROM pedidos INNER JOIN clientes ON clientes.id_cliente = pedidos.id_cliente_fk INNER JOIN productos ON 
+productos.id_producto = pedidos.id_producto_fk WHERE precio_producto > 10.000;
+
+SELECT * FROM clientes;
+
+/*Actualizar Datos de un cliente*/
+UPDATE clientes SET nombre_cliente = 'david' WHERE id_cliente = 1;
 
 /*
   Author: Daniel Quintero Henriquez
